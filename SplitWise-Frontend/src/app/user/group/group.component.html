@@ -1,0 +1,117 @@
+<div>
+    <div class="row">
+      <div class="col-7">
+        <h2>Group Name</h2>
+      </div>
+      <div class="col-2.5">
+        <a [routerLink]="['/expenses', 0]"><button class="btn btn-primary expenseButton">Add an expense</button></a>
+      </div>
+      <div class="col-2">
+        <a [routerLink]="['/settleup']"><button class="btn btn-primary settleUp">Settle up</button></a>
+      </div>
+      <div>
+          <button class="btn btn-primary right" >Delete Group</button>
+        </div>
+    </div>
+    <hr>
+  <div class="row centre-col">
+    <div class="col-4">
+      <label>Total Balance</label>
+    </div>
+    <div class="col-4">
+      <label>You Owe</label>
+    </div>
+    <div class="col-4">
+      <label>You Lent</label>
+    </div>
+  </div>
+  <div class="row centre-col">
+    <div class="col-4">
+  
+      Total Amount
+    </div>
+    <div class="col-4 owe">
+  
+      Owed Amount
+    </div>
+    <div class="col-4 owed">
+  
+      Lent Amount
+    </div>
+  </div>
+  <hr>
+  <div class="row">
+    <div class="col-2">
+      <h4>Members</h4>
+    </div>
+  </div>
+  
+  <hr>
+  
+    <ul class="list-group">
+      <li class="list-group-item"><a [routerLink]="['/dashboard']">You</a></li>
+      <li *ngFor='let member of groupmembers' class="list-group-item"><a
+        >{{member.user.name}}</a></li>
+      <!--<li class="list-group-item"><a>Member Name</a></li>-->
+    </ul>
+  
+    <hr>
+  
+    <h4>Expenses</h4>
+    <hr>
+    <div class="table-responsive">
+      <table class="table">
+          <thead>
+          <tr>
+              <th>
+                  Name
+              </th>
+              <th>
+                  Amount
+              </th>
+              <th>
+                  Splitby
+              </th>
+          </tr>
+      </thead>
+      <tbody *ngFor="let expense of expenses"
+      (click)="showCard(expense.id)">
+                <tr class="expense-list-element">
+                    <td>
+                        {{expense.description | titlecase}}
+                    </td>
+                    <td>
+                        {{expense.total}}
+                    </td>
+                    <td>
+                        {{expense.splitBy | titlecase}}
+                    </td>
+                </tr>
+                <tr *ngIf="showIds.indexOf(expense.id)!=-1">
+                  <td colspan="4"  class="card-td">
+                  <div class="card expense-card">
+                      <div class="card-header">
+                          <h6>{{expense.description | titlecase}}</h6>
+                          <p>{{expense.total |  currency:'INR'}}</p>
+                          <p>Added by {{expense.user.name}}</p>
+                      </div>
+                      <div class="card-body">
+                          <div *ngFor="let payer of payers">
+                          <p class="col card-text"> {{payer.user.name | titlecase}} <span class="text-success">paid {{payer.amountPaid | currency:'INR'}}</span> and <span class="text-tomato">owes {{payer.payerShare | currency:'INR'}}</span></p>
+                          </div>
+                          <div *ngFor="let payee of payees">
+                              <p class="col card-text"> {{payee.user.name | titlecase}} owes <span class="text-tomato">{{payee.payeeShare | currency:'INR'}}</span></p>
+                              </div>
+                      </div>
+                  </div>
+              </td>
+              </tr>
+      </tbody>
+      </table>
+      </div>
+    
+  
+  
+  
+  
+  

@@ -1,0 +1,57 @@
+<div class="row">
+    <div class="col-7">
+      <h2>Dashboard</h2>
+    </div>
+    <div class="col-2.5">
+      <a [routerLink]="['/start-up/home/all-expenses']"><button class="btn btn-primary expenseButton">Add an expense</button></a>
+    </div>
+    <div class="col-2">
+        <a [routerLink]="['/start-up/home/settlement']"><button class="btn btn-primary settleUp">Settle up</button></a>
+    </div>
+  </div>
+  <hr>
+  
+  <div class="row centre-col">
+    <div class="col-4">
+      <label>Balance</label>
+    </div>
+    <div class="col-4">
+      <label>You Owe</label>
+    </div>
+    <div class="col-4">
+      <label>You Lent</label>
+    </div>
+  </div>
+  <div class="row centre-col">
+    <div class="col-4" >
+  
+      Balance Amount
+    </div>
+    <div class="col-4 owe">
+  
+      Owed Amount
+    </div>
+    <div class="col-4 owed">
+  
+      Lent Amount
+    </div>
+  </div>
+  <hr>
+  
+  <div class="row centre-col">
+    <div class="col-6">
+      <label>You Owe</label>
+      <ul class="list-group">
+        <li class="list-group-item owe">Owe</li>
+      </ul>
+    </div>
+    <div class="col-6">
+      <label>You Lent</label>
+      <ul class="list-group">
+        <li class="list-group-item owed">Lent</li>
+      </ul>
+    </div>
+  </div>
+  <br>
+ 
+  

@@ -1,0 +1,43 @@
+
+<div  class="base">
+    <div class="container-fluid">
+      <nav id="sideNav" class="col-lg-3">
+  
+        <br>
+        <br>
+        <br>
+        <ul>
+           
+          <a [routerLink]="['dashboard']">
+            <li>Dashboard</li>
+          </a>
+          <a [routerLink]="['all-expenses']">
+            <li>All Expenses</li>
+          </a>
+          <a [routerLink]="['all-groups']">
+            <li>Groups</li>
+          </a>
+          <a *ngFor='let group of groups' [routerLink]="['group-info',group.id]" routerLinkActive="router-link-active">
+            <li><i class="material-icons">
+              {{group.name}}
+              </i></li>
+          </a>
+         
+          <a [routerLink]="['friend-info']">
+            <li>Friends</li>
+          </a>
+          
+          <a *ngFor='let friend of friends' routerLinkActive="router-link-active">
+            <li><i class="material-icons">
+              {{friend.name}}
+              </i></li>
+          </a>
+          </ul>
+      </nav>
+    </div>
+    <br>
+    </div>
+    <div id="mainContent" class="col-lg-9">
+        <router-outlet></router-outlet>
+      </div>
+

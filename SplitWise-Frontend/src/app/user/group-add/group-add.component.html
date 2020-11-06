@@ -1,0 +1,33 @@
+<div>
+    <div class="row">
+      <div class="col-7">
+        <h2>Add group</h2>
+      </div>
+    </div>
+    <hr>
+</div>
+<form class="form-horizontal" #myForm="ngForm" class="myForm"  ngNativeValidate>
+    <div class="form-group">
+      <div class="row">
+        <div class="col-md-2"></div>
+        <div class="col-md-10">
+          <div class="form-group row">
+            <label for="name" class="col-md-1.5 control-label">Name:</label>
+            <div class="col-md-4">
+              <input class="form-control" name="groupName" id="groupName"  [(ngModel)]='groupData.Name' required>
+            </div>
+          </div>
+        </div>
+      </div>
+      <br>
+      <br>
+      <div class="row">
+        <div class="col-md-2"></div>
+        <div class="col-md-3">
+          <button type="button" class="btn btn-primary" (click)='add()'>Save</button>
+        </div>
+      </div>
+    </div>
+  </form>
+
+
