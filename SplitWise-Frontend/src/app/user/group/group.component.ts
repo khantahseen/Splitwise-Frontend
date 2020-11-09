@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { PayersAC,PayeesAC,ExpensesAC,PayeesClient,PayersClient, ExpensesClient, GroupMemberAC ,GroupMemberClient} from 'src/app/shared/data.service';
+import { PayersAC,PayeesAC,ExpensesAC,PayeesClient,PayersClient, ExpensesClient, GroupMemberAC ,GroupMemberClient, GroupsClient, GroupsAC} from 'src/app/shared/data.service';
 
 @Component({
   selector: 'app-group',
@@ -10,7 +10,8 @@ import { PayersAC,PayeesAC,ExpensesAC,PayeesClient,PayersClient, ExpensesClient,
 export class GroupComponent implements OnInit {
 
   constructor(private expenseClient:ExpensesClient,private activatedRoute:ActivatedRoute,
-    private payerClient:PayersClient, private payeeClient:PayeesClient, private groupMemberClient:GroupMemberClient) { }
+    private payerClient:PayersClient, private payeeClient:PayeesClient, private groupMemberClient:GroupMemberClient
+    ,private groupClient:GroupsClient) { }
   
   expenses:ExpensesAC[];
   payers : PayersAC[];
@@ -18,14 +19,23 @@ export class GroupComponent implements OnInit {
   groupmembers:GroupMemberAC[];
   groupId:number;
   showIds: number[] = [];
-  groupName: string = "";
+  groupdetails:GroupsAC;
   
   ngOnInit(): void {
     this.activatedRoute.paramMap.subscribe(e=>{
       this.groupId=+e.get('id');
+      this.getgroupbyId(this.groupId);
       this.getExpensesbyGroupId(this.groupId);
       this.getMembersbyGroupId(this.groupId);
     });
+  }
+
+  getgroupbyId(id:number){
+    this.groupClient.getGroupById(id).subscribe(result=>{
+     this.groupdetails=result;
+     console.log(this.groupdetails);
+    },
+    error=>console.error());
   }
   
   getExpensesbyGroupId(id:number){

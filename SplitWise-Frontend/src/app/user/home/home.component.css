@@ -24,6 +24,9 @@
      color: black;
    }
   
+   .badge{
+     background-color: lightsalmon;
+   }
    
   .main-content{
     margin-top: 15px;

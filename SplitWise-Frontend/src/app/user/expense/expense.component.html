@@ -1,1 +1,143 @@
-<p>expense works!</p>
+<div>
+    <div class="row">
+      <div class="col-7">
+        <h2>Add expense</h2>
+      </div>
+    </div>
+    <hr>
+    <form class="form-horizontal" #myForm="ngForm" class="myForm" ngNativeValidate>
+      <div class="form-group">
+        <div class="row">
+          <div class="col-md-2"></div>
+          <div class="col-md-10">
+            <div class="form-group row">
+              <label for="members" class="col-md-1.5 control-label">with you and:</label>
+              <div class="col-md-2">
+                <select #sel class="form-control" id="members" name="friends">
+                  <option value="" disabled selected>--select--</option>
+                  <option>friendname</option>
+                </select>
+              </div>
+              <div class="col-md-2"></div>
+              <label for="groups" class="col-md-1.5 control-label">group:</label>
+              <div class="col-md-3">
+                <select class="form-control" name="groups"
+                  id="groups">
+                  <option value="" selected>--none--</option>
+                  <option>Group Name</option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-4"></div>
+        <div class="col-4">
+          <input type="text" class="form-control" placeholder="enter a description"
+            style="margin-bottom: 5px;" name="description" required>
+        </div>
+      </div>
+      <div class="form-group row">
+        <div class="col-3"></div>
+        <label for="currency" class="col-md-1 control-label">Rs.</label>
+        <div class="col-md-2">
+          <input type="text" class="form-control" id="amount"
+            placeholder="amount" name="amount" required>
+        </div>
+      </div>
+     
+      <br>
+      <div class="form-group">
+        <div class="row">
+          <div class="col-md-2"></div>
+          <div class="col-md-10">
+            <div class="form-group row">
+              <label for="paidBy" class="col-md-1.5 control-label">paid by:</label>
+              <div class="col-md-2">
+                <select class="form-control" id="paidBy" name="paidBy" required>
+                  <option  selected>You</option>
+                  <option>User Name</option>
+                </select>
+              </div>
+              <div class="col-md-2"></div>
+              <label for="splitBy" class="col-md-1.5 control-label">and split:</label>
+              <div class="col-md-3">
+                <select class="form-control" id="splitBy" name="splitBy"
+                   required>
+                  <option>equally</option>
+                  <option>unequally</option>
+                  <option>by percentage</option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+  
+      <br>
+  
+      <div class="row" >
+        <div class="col-4"></div>
+        <div class="col-7">
+          <span>
+            <div class="row">
+              <div class="col-md-2"><label for="you" class="col-md-1.5 control-label">You</label></div>
+              <div class="col-md-4"><input type="number" class="form-control" style="margin-bottom: 5px;" name="user"
+                    required></div>
+            </div>
+          </span>
+          <span>
+            <div class="row">
+              <div class="col-md-2"><label class="col-md-1.5" name="user"
+                  is="friendid">Friend name</label></div>
+              <div class="col-md-4"><input type="number" class="form-control" style="margin-bottom: 5px;" name="user"
+                    required></div>
+            </div>
+          </span>
+        </div>
+      </div>
+      <div class="row" >
+        <div class="col-4"></div>
+        <div class="col-6">
+          <div class="row">
+            <div class="col-md-2"><label class="col-md-1.5" name="user">You</label></div>
+            <div class="col-3"><input type="number" class="form-control" style="margin-bottom: 5px;" name="user"
+                ></div>
+            <div class="col-1"><input #mybox type="checkbox" name="me">
+            </div>
+          </div>
+  
+          <span  ngForm>
+            <div class="row">
+              <div class="col-md-2"><label class="col-md-1.5" name="user">UserName</label></div>
+              <div class="col-3"><input type="number" class="form-control" style="margin-bottom: 5px;" name="user"
+                  ></div>
+              <div class="col-1"><input #mybox type="checkbox"></div>
+            </div>
+          </span>
+        </div>
+      </div>
+      <br>
+        
+      <div class="form-group">
+        <div class="row">
+          <div class="col-md-6"></div>
+          <div class="col-md-6">
+            <div class="form-group row">
+              <div class="col-md-2">
+                <a routerLinkActive="router-link-active" ><button type="button" class="btn btn-secondary">Cancel</button></a>
+              </div>
+              <div class="col-md-1"></div>
+              <div class="col-md-2">
+                <button type="submit" class="btn btn-secondary">Save</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+  
+    </form>
+  </div>
+  
+  

@@ -2,8 +2,9 @@
 <div  class="base">
     <div class="container-fluid">
       <nav id="sideNav" class="col-lg-3">
-  
+      
         <br>
+        <div><h5><b>Welcome, {{name}}</b></h5></div>
         <br>
         <br>
         <ul>
@@ -14,18 +15,16 @@
           <a [routerLink]="['all-expenses']">
             <li>All Expenses</li>
           </a>
-          <a [routerLink]="['all-groups']">
-            <li>Groups</li>
-          </a>
+          <h6 class="forGroup">Groups
+            &nbsp;&nbsp;&nbsp;&nbsp;<a [routerLink]="['groupAdd']"><span class="badge badge-secondary"><i class="fa fa-plus-square"></i>+add</span></a></h6>
           <a *ngFor='let group of groups' [routerLink]="['group-info',group.id]" routerLinkActive="router-link-active">
             <li><i class="material-icons">
               {{group.name}}
               </i></li>
           </a>
          
-          <a [routerLink]="['friend-info']">
-            <li>Friends</li>
-          </a>
+          <h6>Friends
+            &nbsp;&nbsp;&nbsp;&nbsp;<a><span class="badge badge-secondary"><i class="fa fa-plus-square"></i>+add</span></a></h6>
           
           <a *ngFor='let friend of friends' routerLinkActive="router-link-active">
             <li><i class="material-icons">
