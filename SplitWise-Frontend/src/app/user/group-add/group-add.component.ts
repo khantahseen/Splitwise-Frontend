@@ -71,7 +71,7 @@ export class GroupAddComponent implements OnInit {
       this.memberData.GroupId = this.resultGroup;
       console.log(this.memberData.GroupId);
       for (const x of this.members) {
-  
+
         this.memberData.MemberId = x.id;
         console.log(this.memberData);
         this.groupmember.init(this.memberData);
@@ -84,5 +84,5 @@ export class GroupAddComponent implements OnInit {
       console.log(this.resultGroup);
     },
       error => console.log(error));
-    }
+  }
 }
