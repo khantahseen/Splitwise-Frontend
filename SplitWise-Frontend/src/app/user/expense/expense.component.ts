@@ -50,11 +50,17 @@ export class ExpenseComponent implements OnInit {
   friends: UsersAC[] = [];
   groups: GroupsAC[] = [];
   groupmembers: GroupMemberAC[] = [];
-  paidBy: GroupMemberAC[] = [];
-  expenseBetween: GroupMemberAC[] = [];
+  paidBy: any[] = [];
+  expenseBetween: any[] = [];
   isIndividual: boolean;
   selectedUsers: UsersAC[] = [];
   postedExpenseId: any;
+  selectedFriend: UsersAC;
+  flag: boolean;
+  selectedFriendShare: number=0;
+  myShare: number=0;
+  finalMyShare: number=0;
+  finalFriendShare: number=0;
 
   constructor(private userFriendClient: UserFriendClient, private groupClient: GroupsClient,
     private groupMemberClient: GroupMemberClient, private userClient: UsersClient,
@@ -93,14 +99,30 @@ export class ExpenseComponent implements OnInit {
   }
 
   loadPaid() {
-    this.groupMemberClient.getGroupMember(this.expenseData.GroupId).subscribe(result => {
-      this.groupmembers = result;
-      console.log(this.groupmembers);
-      this.paidBy = this.groupmembers.filter(k => k.user.id !== this.currentUserId);
-      this.expenseBetween = this.groupmembers.filter(k => k.user.id !== this.currentUserId);
-      this.isIndividual = false;
-    },
-      error => console.error(error));
+    if (this.expenseData.GroupId !== undefined && this.expenseData.GroupId > 0) {
+      this.groupMemberClient.getGroupMember(this.expenseData.GroupId).subscribe(result => {
+        this.groupmembers = result;
+        console.log(this.groupmembers);
+        this.paidBy = this.groupmembers.filter(k => k.user.id !== this.currentUserId);
+        this.expenseBetween = this.groupmembers.filter(k => k.user.id !== this.currentUserId);
+        this.isIndividual = false;
+      },
+        error => console.error(error));
+    }
+    else {
+      this.paidBy = this.friends;
+      this.expenseBetween = this.friends;
+      this.isIndividual = true;
+    }
+  }
+
+  addUser(id: string) {
+    console.log(id);
+    this.flag = true;
+    this.selectedFriend = this.friends.find(k => k.id === id);
+    // console.log(JSON.stringify(this.selectedFriend));
+    this.paidBy = [];
+    this.paidBy.push(this.selectedFriend);
   }
 
   onCheck(checked: boolean, id: string) {
@@ -129,18 +151,59 @@ export class ExpenseComponent implements OnInit {
     this.expenseClient.postExpenses(this.expense).subscribe(result => {
       console.log(result);
       this.postedExpenseId = result.id;
-      if (result.splitBy == "Equally") {
-        let length = this.selectedUsers.length;
-        console.log(length);
-        let userShare = result.total / length;
-        console.log(userShare);
-        this.postPayer(userShare);
-        for (var i = 0; i < this.selectedUsers.length; i++) {
-          if (this.selectedUsers[i].id != this.payerData.PayerId) {
-            this.postPayees(userShare, this.selectedUsers[i].id);
+      console.log(this.postedExpenseId);
+      if (this.isIndividual == true) {
+        if (result.splitBy == "Equally") {
+          let userShare = result.total / 2;
+          console.log(userShare);
+          this.postPayer(userShare);
+          if (this.selectedFriend.id != this.payerData.PayerId) {
+            this.postPayees(userShare, this.selectedFriend.id);
+          }
+          else {
+            this.postPayees(userShare, this.currentUserId);
+          }
+        }
+        else if(result.splitBy=="By Percentage"){
+          this.finalMyShare = result.total * (this.myShare / 100);
+          console.log(this.finalMyShare);
+          this.finalFriendShare = result.total * (this.selectedFriendShare / 100);
+          console.log(this.finalFriendShare);
+          if(this.selectedFriend.id==this.payerData.PayerId){
+            this.postPayer(this.finalFriendShare);
+            this.postPayees(this.finalMyShare,this.currentUserId);
+          }
+          else{
+            this.postPayer(this.finalMyShare);
+            this.postPayees(this.finalFriendShare,this.selectedFriend.id);
+          }
+        }
+        else if(result.splitBy=="Unequally"){
+          if(this.selectedFriend.id==this.payerData.PayerId){
+            this.postPayer(this.selectedFriendShare);
+            this.postPayees(this.myShare,this.currentUserId);
+          }
+          else{
+            this.postPayer(this.myShare);
+            this.postPayees(this.selectedFriendShare,this.selectedFriend.id);
           }
         }
       }
+      else {
+        if (result.splitBy == "Equally") {
+          let length = this.selectedUsers.length;
+          console.log(length);
+          let userShare = result.total / length;
+          console.log(userShare);
+          this.postPayer(userShare);
+          for (var i = 0; i < this.selectedUsers.length; i++) {
+            if (this.selectedUsers[i].id != this.payerData.PayerId) {
+              this.postPayees(userShare, this.selectedUsers[i].id);
+            }
+          }
+        }
+      }
+
     },
       error => console.error(error));
   }

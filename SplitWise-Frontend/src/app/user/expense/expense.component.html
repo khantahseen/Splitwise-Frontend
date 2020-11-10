@@ -14,10 +14,17 @@
             <label for="members" class="col-md-1.5 control-label">With You and</label>
             <div class="col-md-2">
               <select #sel class="form-control" *ngIf="this.isIndividual==true" id="members" name="friends"
-                (change)="addUser(sel.value)" [(ngModel)]="this.selectedFriend.id">
+                (change)="addUser(sel.value)">
                 <option value="" disabled selected>--Select--</option>
                 <option *ngFor="let friend of friends" [value]="friend.id">{{friend.name}}</option>
               </select>
+              <label for="paidBy" class="col-md-1.5 control-label">Paid by:</label>
+              <div class="col-md-4">
+                <select class="form-control" [(ngModel)]="this.payerData.PayerId" id="paidBy" name="paidBy" required>
+                  <option [value]="this.currentUserId" selected>You</option>
+                  <option *ngFor="let usermember of paidBy" [value]="usermember.id">{{usermember.name}}</option>
+                </select>
+              </div>
             </div>
             <div class="col-md-2"></div>
             <label for="groups" class="col-md-1.5 control-label">Group:</label>
@@ -28,6 +35,8 @@
                 <option *ngFor="let group of groups" [value]="group.id">{{group.name}}</option>
               </select>
             </div>
+            
+           
           </div>
         </div>
       </div>
@@ -55,7 +64,7 @@
           <div class="form-group row">
             <label for="paidBy" class="col-md-1.5 control-label">Paid by:</label>
             <div class="col-md-2">
-              <select class="form-control" [(ngModel)]="this.payerData.PayerId" id="paidBy" name="paidBy" required>
+              <select class="form-control" *ngIf="this.isIndividual==false" [(ngModel)]="this.payerData.PayerId" id="paidBy" name="paidBy" required>
                 <option [value]="this.currentUserId" selected>You</option>
                 <option *ngFor="let usermember of paidBy" [value]="usermember.user.id">{{usermember.user.name}}</option>
               </select>
@@ -74,7 +83,6 @@
         </div>
       </div>
     </div>
-
     <br>
 
     <div class="row" *ngIf="this.isIndividual === true">
@@ -83,8 +91,8 @@
         <span>
           <div class="row">
             <div class="col-md-2"><label for="you" class="col-md-1.5 control-label">You</label></div>
-            <div class="col-md-4"><input type="number" class="form-control" style="margin-bottom: 5px;" name="user"
-                [(ngModel)]="this.myShare" (change)="onSplit()" required></div>
+            <div class="col-md-4"><input type="number" class="form-control" style="margin-bottom: 5px;" name="user"  
+              [(ngModel)]="this.myShare" required></div>
           </div>
         </span>
         <span>
@@ -92,7 +100,7 @@
             <div class="col-md-2"><label class="col-md-1.5" name="user"
                 is="friendid">{{this.selectedFriend.name}}</label></div>
             <div class="col-md-4"><input type="number" class="form-control" style="margin-bottom: 5px;" name="user"
-                [(ngModel)]="this.selectedFriendShare" (change)="onSplit()" required></div>
+              [(ngModel)]="this.selectedFriendShare" required></div>
           </div>
         </span>
       </div>
