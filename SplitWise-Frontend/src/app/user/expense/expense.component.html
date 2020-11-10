@@ -124,11 +124,11 @@
         <div class="col-md-6">
           <div class="form-group row">
             <div class="col-md-2">
-              <a [routerLink]="['/dashboard']" routerLinkActive="router-link-active" ><button type="button" class="btn btn-secondary">Cancel</button></a>
+              <a routerLinkActive="router-link-active" ><button type="button" class="btn btn-secondary">Cancel</button></a>
             </div>
             <div class="col-md-1"></div>
             <div class="col-md-2">
-              <button type="submit" class="btn btn-secondary">Save</button>
+              <button type="submit" class="btn btn-secondary" (click)="add()">Save</button>
             </div>
           </div>
         </div>
