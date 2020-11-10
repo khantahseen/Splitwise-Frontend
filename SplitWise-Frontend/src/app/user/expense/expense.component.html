@@ -110,7 +110,8 @@
       <div class="col-6">
         <div class="row">
           <div class="col-md-2"><label class="col-md-1.5" name="user">You</label></div>
-          <div class="col-3"><input type="number" class="form-control" style="margin-bottom: 5px;" name="user"></div>
+          <div class="col-3"><input type="number" class="form-control" style="margin-bottom: 5px;" name="user"
+            [(ngModel)]="this.shareOfPayee[this.currentUserId]"></div>
           <div class="col-1"><input #mybox type="checkbox" (change)="onCheck(mybox.checked,this.currentUserId)" name="me">
           </div>
         </div>
@@ -118,7 +119,8 @@
         <span *ngFor="let usermember of expenseBetween;let i = index;" ngForm>
           <div class="row">
             <div class="col-md-2"><label class="col-md-1.5" name="usermember">{{usermember.user.name}}</label></div>
-            <div class="col-3"><input type="number" class="form-control" style="margin-bottom: 5px;" name="user"></div>
+            <div class="col-3"><input type="number" class="form-control"
+               style="margin-bottom: 5px;" name="user" [(ngModel)]="this.shareOfPayee[usermember.user.id]"></div>
             <div class="col-1"><input #mybox type="checkbox" (change)="onCheck(mybox.checked,usermember.user.id)"></div>
           </div>
         </span>
@@ -142,6 +144,5 @@
         </div>
       </div>
     </div>
-
   </form>
 </div>

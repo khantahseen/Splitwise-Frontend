@@ -57,10 +57,13 @@ export class ExpenseComponent implements OnInit {
   postedExpenseId: any;
   selectedFriend: UsersAC;
   flag: boolean;
-  selectedFriendShare: number=0;
-  myShare: number=0;
-  finalMyShare: number=0;
-  finalFriendShare: number=0;
+  selectedFriendShare: number = 0;
+  myShare: number = 0;
+  finalMyShare: number = 0;
+  finalFriendShare: number = 0;
+  shareOfPayee: number[] = [];
+  percentageShare: number[] = [];
+
 
   constructor(private userFriendClient: UserFriendClient, private groupClient: GroupsClient,
     private groupMemberClient: GroupMemberClient, private userClient: UsersClient,
@@ -164,28 +167,28 @@ export class ExpenseComponent implements OnInit {
             this.postPayees(userShare, this.currentUserId);
           }
         }
-        else if(result.splitBy=="By Percentage"){
+        else if (result.splitBy == "By Percentage") {
           this.finalMyShare = result.total * (this.myShare / 100);
           console.log(this.finalMyShare);
           this.finalFriendShare = result.total * (this.selectedFriendShare / 100);
           console.log(this.finalFriendShare);
-          if(this.selectedFriend.id==this.payerData.PayerId){
+          if (this.selectedFriend.id == this.payerData.PayerId) {
             this.postPayer(this.finalFriendShare);
-            this.postPayees(this.finalMyShare,this.currentUserId);
+            this.postPayees(this.finalMyShare, this.currentUserId);
           }
-          else{
+          else {
             this.postPayer(this.finalMyShare);
-            this.postPayees(this.finalFriendShare,this.selectedFriend.id);
+            this.postPayees(this.finalFriendShare, this.selectedFriend.id);
           }
         }
-        else if(result.splitBy=="Unequally"){
-          if(this.selectedFriend.id==this.payerData.PayerId){
+        else if (result.splitBy == "Unequally") {
+          if (this.selectedFriend.id == this.payerData.PayerId) {
             this.postPayer(this.selectedFriendShare);
-            this.postPayees(this.myShare,this.currentUserId);
+            this.postPayees(this.myShare, this.currentUserId);
           }
-          else{
+          else {
             this.postPayer(this.myShare);
-            this.postPayees(this.selectedFriendShare,this.selectedFriend.id);
+            this.postPayees(this.selectedFriendShare, this.selectedFriend.id);
           }
         }
       }
@@ -202,8 +205,36 @@ export class ExpenseComponent implements OnInit {
             }
           }
         }
+        else if (result.splitBy == "By Percentage") {
+          this.percentageShare = [];
+          for (const x of this.selectedUsers) {
+            this.percentageShare[x.id] = result.total * (this.shareOfPayee[x.id] / 100);
+            console.log(this.percentageShare);
+          }
+          let payShare = this.percentageShare[this.payerData.PayerId];
+          console.log(payShare);
+          this.postPayer(payShare);
+          for (var i = 0; i < this.selectedUsers.length; i++) {
+            if (this.selectedUsers[i].id != this.payerData.PayerId) {
+              let payeeshare = this.percentageShare[this.selectedUsers[i].id];
+              console.log(payeeshare);
+              this.postPayees(payeeshare, this.selectedUsers[i].id);
+            }
+          }
+        }
+        else if(result.splitBy=="Unequally"){
+          let payShare = this.shareOfPayee[this.payerData.PayerId];
+          console.log(payShare);
+          this.postPayer(payShare);
+          for (var i = 0; i < this.selectedUsers.length; i++) {
+            if (this.selectedUsers[i].id != this.payerData.PayerId) {
+              let payeeshare = this.shareOfPayee[this.selectedUsers[i].id];
+              console.log(payeeshare);
+              this.postPayees(payeeshare, this.selectedUsers[i].id);
+            }
+          }
+        }
       }
-
     },
       error => console.error(error));
   }
@@ -214,10 +245,10 @@ export class ExpenseComponent implements OnInit {
     this.payerData.PayerShare = payerShare;
     this.payer.init(this.payerData);
     console.log(this.payer);
-    this.payerClient.postPayers(this.payer).subscribe(result => {
+    /*this.payerClient.postPayers(this.payer).subscribe(result => {
       console.log(result);
     },
-      error => console.error(error));
+      error => console.error(error));*/
   }
 
   postPayees(payeeShare: number, id: string) {
@@ -226,9 +257,9 @@ export class ExpenseComponent implements OnInit {
     this.payeeData.PayeeShare = payeeShare;
     this.payee.init(this.payeeData);
     console.log(this.payee);
-    this.payeeClient.postPayees(this.payee).subscribe(result => {
+    /*this.payeeClient.postPayees(this.payee).subscribe(result => {
       console.log(result);
     },
-      error => console.error(error));
+      error => console.error(error));*/
   }
 }
