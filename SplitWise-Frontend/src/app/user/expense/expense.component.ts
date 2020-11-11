@@ -245,10 +245,10 @@ export class ExpenseComponent implements OnInit {
     this.payerData.PayerShare = payerShare;
     this.payer.init(this.payerData);
     console.log(this.payer);
-    /*this.payerClient.postPayers(this.payer).subscribe(result => {
+    this.payerClient.postPayers(this.payer).subscribe(result => {
       console.log(result);
     },
-      error => console.error(error));*/
+      error => console.error(error));
   }
 
   postPayees(payeeShare: number, id: string) {
@@ -257,9 +257,9 @@ export class ExpenseComponent implements OnInit {
     this.payeeData.PayeeShare = payeeShare;
     this.payee.init(this.payeeData);
     console.log(this.payee);
-    /*this.payeeClient.postPayees(this.payee).subscribe(result => {
+    this.payeeClient.postPayees(this.payee).subscribe(result => {
       console.log(result);
     },
-      error => console.error(error));*/
+      error => console.error(error));
   }
 }

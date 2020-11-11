@@ -22,6 +22,8 @@ import { HomeComponent } from './user/home/home.component';
 import { UserListComponent } from './userlist/user-list/user-list.component';
 import { GroupAddComponent } from './user/group-add/group-add.component';
 import { AbsolutePipe } from './absolute.pipe';
+import { GroupSettlementsComponent } from './user/group-settlements/group-settlements.component';
+
 
 
 @NgModule({
@@ -43,6 +45,8 @@ import { AbsolutePipe } from './absolute.pipe';
     UserListComponent,
     GroupAddComponent,
     AbsolutePipe,
+    GroupSettlementsComponent,
+    
    
    
   ],

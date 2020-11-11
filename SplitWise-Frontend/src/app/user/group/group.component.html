@@ -7,7 +7,7 @@
         <a [routerLink]="['/start-up/home/expense-info']"><button class="btn btn-primary expenseButton">Add an expense</button></a>
       </div>
       <div class="col-2">
-        <a [routerLink]="['/settleup']"><button class="btn btn-primary settleUp">Settle up</button></a>
+        <a [routerLink]="['/start-up/home/settlement-list',groupId]"><button class="btn btn-primary settleUp">View Group Settlements</button></a>
       </div>
       <div>
           <button class="btn btn-primary right" >Delete Group</button>
@@ -37,7 +37,6 @@
         >{{member.user.name}}</a></li>
       <li class="list-group-item"><a>Member Name</a></li>
     </ul>
-  
     <hr>-->
   
     <h5>Expenses</h5>

@@ -1,1 +1,73 @@
-<p>settlements works!</p>
+<div class="row">
+    <div class="col-7">
+      <h4>Settle Up Your Expenses</h4>
+    </div>
+  </div>
+  <hr>
+  
+  <form class="form-horizontal" #myForm="ngForm" class="myForm" ngNativeValidate>
+    <div class="form-group">
+      <div class="row">
+        <div class="col-md-2"></div>
+        <div class="col-md-10">
+          <div class="form-group row">
+            <label for="members" class="col-md-1.5 control-label">Paid By :</label>
+            <div class="col-md-2">
+              <select #sel class="form-control" id="members" name="friends" [(ngModel)]="this.settlementData.PayerId" required>
+                <option value="" disabled selected>--select--</option>
+                <option *ngFor="let friend of friends" [value]="friend.id">{{friend.name}}</option>
+              </select>
+            </div>
+            <div class="col-md-2"></div>
+            <label for="groups" class="col-md-1.5 control-label">Paid To :</label>
+            <div class="col-md-3">
+              <select #sel class="form-control" id="members" name="friends" [(ngModel)]="this.settlementData.PayeeId" required>
+                <option value="" disabled selected>--select--</option>
+                <option *ngFor="let friend of friends" [value]="friend.id">{{friend.name}}</option>
+              </select>
+            </div>
+          </div>
+        </div>
+      </div>
+      <br>
+      <div class="row">
+        <div class="col-md-4"></div>
+        <div class="col-md-8">
+          <div class="form-group row">
+            <label for="members" class="col-md-1.5 control-label">Amount :</label>
+            <div class="col-md-3">
+              <input type="number" name="amt" id="amt" class="form-control" [(ngModel)]="this.settlementData.Amount" required>
+            </div>
+          </div>
+          <div class="col-md-4"></div>
+            <label for="groups" class="col-md-1.5 control-label">Group :</label>
+            <div class="col-md-3">
+              <select class="form-control" [(ngModel)]="this.settlementData.GroupId" name="groups"
+                id="groups">
+                <option value="" selected>--none--</option>
+                <option *ngFor="let group of groups" [value]="group.id">{{group.name}}</option>
+              </select>
+            </div>
+        </div>
+        
+      </div>
+     
+      <div class="form-group">
+        <div class="row">
+          <div class="col-md-6"></div>
+          <div class="col-md-6">
+            <div class="form-group row">
+              <div class="col-md-2">
+                <button class="btn btn-secondary">Cancel</button>
+              </div>
+              <div class="col-md-1"></div>
+              <div class="col-md-2">
+                <button type="submit" class="btn btn-secondary" (click)="add()">Save</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+  

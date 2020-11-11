@@ -9,6 +9,7 @@ import { ExpensesComponent } from './user/expenses/expenses.component';
 import { FriendComponent } from './user/friend/friend.component';
 import { FriendsComponent } from './user/friends/friends.component';
 import { GroupAddComponent } from './user/group-add/group-add.component';
+import { GroupSettlementsComponent } from './user/group-settlements/group-settlements.component';
 import { GroupComponent } from './user/group/group.component';
 import { GroupsComponent } from './user/groups/groups.component';
 import { HomeComponent } from './user/home/home.component';
@@ -34,6 +35,7 @@ const routes: Routes = [
           {path:'all-expenses',component:ExpensesComponent},
           {path:'expense-info',component:ExpenseComponent},
           {path:'settlement',component:SettlementsComponent},
+          {path:'settlement-list/:id',component:GroupSettlementsComponent},
           {path:'groupAdd', component:GroupAddComponent}
     
         ]
