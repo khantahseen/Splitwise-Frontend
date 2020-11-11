@@ -11,5 +11,4 @@ export class FriendComponent implements OnInit {
 
   ngOnInit(): void {
   }
-
 }

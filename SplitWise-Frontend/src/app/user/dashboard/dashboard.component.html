@@ -11,7 +11,7 @@
   </div>
   <hr>
   
-  <div class="row centre-col">
+  <!--<div class="row centre-col">
     <div class="col-4">
       <label>Balance</label>
     </div>
@@ -36,8 +36,19 @@
       Lent Amount
     </div>
   </div>
-  <hr>
+  <hr>-->
   
+  <div>
+    <table class="table">
+      <thead>
+          <tr>
+              <th scope="col">Total balance : <span [ngClass]="{'text-success': (totalLent - totalOwed)>0, 'text-danger':(totalLent - totalOwed)<0}">{{totalLent - totalOwed | number : '1.2-2'}}</span></th>
+              <th scope="col">You owe : <span class="text-danger">{{totalOwed | number : '1.2-2'}}</span></th>
+              <th scope="col">You are owed : <span class="text-success">{{totalLent | number : '1.2-2'}}</span></th>
+          </tr>
+      </thead>
+  </table>
+  </div>
   <div class="row centre-col">
     <div class="col-6">
       <label>You Owe</label>

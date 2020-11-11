@@ -21,6 +21,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { HomeComponent } from './user/home/home.component';
 import { UserListComponent } from './userlist/user-list/user-list.component';
 import { GroupAddComponent } from './user/group-add/group-add.component';
+import { AbsolutePipe } from './absolute.pipe';
 
 
 @NgModule({
@@ -41,6 +42,7 @@ import { GroupAddComponent } from './user/group-add/group-add.component';
     HomeComponent,
     UserListComponent,
     GroupAddComponent,
+    AbsolutePipe,
    
    
   ],

@@ -1157,7 +1157,63 @@ export class PayeesClient {
         }
         return _observableOf<PayeesAC[]>(<any>null);
     }
+
+    getExpensesByPayeeId(payeeId: string | null): Observable<PayeesAC[]> {
+        let url_ = this.baseUrl + "/api/Payees/expenseByPayeeId/{payeeId}";
+        if (payeeId === undefined || payeeId === null)
+            throw new Error("The parameter 'payeeId' must be defined.");
+        url_ = url_.replace("{payeeId}", encodeURIComponent("" + payeeId));
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetExpensesByPayeeId(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetExpensesByPayeeId(<any>response_);
+                } catch (e) {
+                    return <Observable<PayeesAC[]>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<PayeesAC[]>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetExpensesByPayeeId(response: HttpResponseBase): Observable<PayeesAC[]> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            if (Array.isArray(resultData200)) {
+                result200 = [] as any;
+                for (let item of resultData200)
+                    result200!.push(PayeesAC.fromJS(item));
+            }
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<PayeesAC[]>(<any>null);
+    }
 }
+
 
 @Injectable({
     providedIn: 'root'
@@ -1459,6 +1515,61 @@ export class PayersClient {
     }
 
     protected processGetPayersByPayerId(response: HttpResponseBase): Observable<PayersAC[]> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            if (Array.isArray(resultData200)) {
+                result200 = [] as any;
+                for (let item of resultData200)
+                    result200!.push(PayersAC.fromJS(item));
+            }
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<PayersAC[]>(<any>null);
+    }
+
+    getExpensesByPayerId(payerId: string | null): Observable<PayersAC[]> {
+        let url_ = this.baseUrl + "/api/Payers/expensesByPayerId/{payerId}";
+        if (payerId === undefined || payerId === null)
+            throw new Error("The parameter 'payerId' must be defined.");
+        url_ = url_.replace("{payerId}", encodeURIComponent("" + payerId));
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetExpensesByPayerId(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetExpensesByPayerId(<any>response_);
+                } catch (e) {
+                    return <Observable<PayersAC[]>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<PayersAC[]>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetExpensesByPayerId(response: HttpResponseBase): Observable<PayersAC[]> {
         const status = response.status;
         const responseBlob =
             response instanceof HttpResponse ? response.body :

@@ -14,48 +14,31 @@
         </div>
     </div>
     <hr>
-  <div class="row centre-col">
-    <div class="col-4">
-      <label>Total Balance</label>
-    </div>
-    <div class="col-4">
-      <label>You Owe</label>
-    </div>
-    <div class="col-4">
-      <label>You Lent</label>
-    </div>
-  </div>
-  <div class="row centre-col">
-    <div class="col-4">
   
-      Total Amount
-    </div>
-    <div class="col-4 owe">
-  
-      Owed Amount
-    </div>
-    <div class="col-4 owed">
-  
-      Lent Amount
-    </div>
-  </div>
-  <hr>
-  <div class="row">
-    <div class="col-2">
-      <h5>Members</h5>
+ 
+  <div class="container">
+    <h5 class="title">Group Balance <i class="fa fa-money"></i></h5>
+    <div class="card">
+      <div class="card-body">
+        <h6 class="card-title text-muted">Members :</h6>
+        <div *ngFor="let member of usersBalance" class="card-subtitle mb-2 text-muted">
+          <p>{{member.userName}} </p>
+          <p *ngIf="member.balance > 0" class="text-success"> Gets {{member.balance}}</p>
+          <p *ngIf="member.balance < 0" class="text-danger"> has to pay {{member.balance | absolute}}</p>
+          <p *ngIf="member.balance == 0" class="text-danger"> Settled Up</p>
+        </div>
+      </div>
     </div>
   </div>
   
-  <hr>
-  
-    <ul class="list-group">
+    <!--<ul class="list-group">
       <li class="list-group-item"><a [routerLink]="['/dashboard']">You</a></li>
       <li *ngFor='let member of groupmembers' class="list-group-item"><a
         >{{member.user.name}}</a></li>
-      <!--<li class="list-group-item"><a>Member Name</a></li>-->
+      <li class="list-group-item"><a>Member Name</a></li>
     </ul>
   
-    <hr>
+    <hr>-->
   
     <h5>Expenses</h5>
     <hr>
