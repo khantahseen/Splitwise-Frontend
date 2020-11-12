@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { PayersAC,PayeesAC,ExpensesAC,PayeesClient,PayersClient, ExpensesClient, GroupMemberAC ,GroupMemberClient, GroupsClient, GroupsAC} from 'src/app/shared/data.service';
 
 @Component({
@@ -11,7 +11,7 @@ export class GroupComponent implements OnInit {
   currentUserId: string = localStorage.getItem("userId");
   constructor(private expenseClient:ExpensesClient,private activatedRoute:ActivatedRoute,
     private payerClient:PayersClient, private payeeClient:PayeesClient, private groupMemberClient:GroupMemberClient
-    ,private groupClient:GroupsClient) { }
+    ,private groupClient:GroupsClient, private router:Router) { }
   
   expenses:ExpensesAC[]=[];
   payers : PayersAC[];
@@ -19,25 +19,6 @@ export class GroupComponent implements OnInit {
   allPayeeExpenses: PayeesAC[];
   usersBalance: any[] = [];
   usersOwes: any[] = [];
-  payerforCalculation: PayersAC={
-    id:0,
-    expenseId:0,
-    expense:null,
-    amountPaid:0,
-    payerShare:0,
-    init:null,
-    toJSON:null
-  };
-  payeeforCalculation:PayeesAC={
-    id:0,
-    expenseId:0,
-    expense:null,
-    payeeShare:0,
-    payeeId:null,
-    init:null,
-    toJSON:null
-  };
-
   payees : PayeesAC[];
   allPayers:PayersAC[]=[];
   allPayees:PayeesAC[]=[];
@@ -166,5 +147,27 @@ export class GroupComponent implements OnInit {
     },
     error=>console.error(error));
   }
+
+  deleteGroup(groupid:number){
+    if (confirm("Are you sure to delete this group?")) {
+      this.groupClient.deleteGroups(groupid).subscribe(() => {
+        this.router.navigateByUrl(`/start-up/home/dashboard`)
+          .then(() => {
+            window.location.reload();
+          });
+      },
+        error => console.error(error));
+    }
+  }
+
+  deleteExpense(expenseId:number){
+    if(confirm("Are you sure you want to delete this expense?")){
+      this.expenseClient.deleteExpenses(expenseId).subscribe(()=>{
+        window.location.reload();
+      },
+      error=>console.error(error));
+    }
+  }
+  
  
 }

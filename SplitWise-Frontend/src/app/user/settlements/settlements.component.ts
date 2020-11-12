@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { UsersAC, GroupsAC,SettlementsAC,Settlements,UserFriendClient,GroupsClient, SettlementsClient } from 'src/app/shared/data.service';
+import { ExpensesAC,UsersAC, GroupsAC,SettlementsAC,Settlements,UserFriendClient,GroupsClient, SettlementsClient, ExpensesClient } from 'src/app/shared/data.service';
 
 @Component({
   selector: 'app-settlements',
@@ -11,6 +11,7 @@ export class SettlementsComponent implements OnInit {
   currentUserName: string = localStorage.getItem("userFullName");
   friends: UsersAC[] = [];
   groups: GroupsAC[] = [];
+  groupExpenses:ExpensesAC[]=[];
   settlement:Settlements=new Settlements();
   settlementData:any={
     Id:0,
@@ -20,9 +21,11 @@ export class SettlementsComponent implements OnInit {
     PayeeId:null,
     Payee:null,
     DateTime:null,
-    Amount:0
+    Amount:0,
+    ExpenseId:0
   }
-  constructor(private userFriendClient: UserFriendClient, private groupClient: GroupsClient, private settlementClient:SettlementsClient) { }
+  constructor(private userFriendClient: UserFriendClient, private groupClient: GroupsClient,
+    private expenseClient:ExpensesClient, private settlementClient:SettlementsClient) { }
 
   ngOnInit(): void {
     this.getFriends(this.currentUserId);
@@ -43,6 +46,17 @@ export class SettlementsComponent implements OnInit {
       console.log(this.groups);
     },
       error => console.error(error));
+  }
+
+  loadExpense(){
+    
+        this.expenseClient.getExpensesByGroupId(this.settlementData.GroupId).subscribe(result => {
+          this.groupExpenses = result;
+          console.log(this.groupExpenses);
+          },
+          error => console.error(error));
+     
+    
   }
 
   add(){

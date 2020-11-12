@@ -31,7 +31,7 @@ const routes: Routes = [
           {path:'all-groups',component:GroupsComponent},
           {path:'group-info/:id',component:GroupComponent},
           {path:'all-friends',component:FriendsComponent},
-          {path:'friend-info',component:FriendComponent},
+          {path:'friend-info/:id',component:FriendComponent},
           {path:'all-expenses',component:ExpensesComponent},
           {path:'expense-info',component:ExpenseComponent},
           {path:'settlement',component:SettlementsComponent},

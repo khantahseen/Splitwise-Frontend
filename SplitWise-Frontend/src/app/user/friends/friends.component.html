@@ -1,1 +1,22 @@
-<p>friends works!</p>
+<div class="container">
+    <h4>Add New Friend in Friend List</h4>
+    <hr />
+    <div class="row">
+        <div class="col-md-8">
+            <form #form="ngForm">
+                <div class="form-group">
+                    <label for="FriendsEmail" class="control-label">Choose Friend</label>
+                    <br>
+                    <select id="FriendsEmail" name="FriendsEmail" class="form-control"
+                        required [(ngModel)]='myFriendEmail'>
+                        <option *ngFor='let user of userList' [ngValue]="user.email">{{user.name}}</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <button type="submit" class="btn btn-secondary" (click)="add()">ADD</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

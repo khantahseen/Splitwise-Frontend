@@ -2911,7 +2911,7 @@ export interface IGroupMember {
     user?: Users | undefined;
 }
 
-export class PayeesAC implements IPayeesAC {
+/*export class PayeesAC implements IPayeesAC {
     id!: number;
     expenseId!: number;
     expense?: ExpensesAC | undefined;
@@ -3277,8 +3277,410 @@ export interface ISettlements {
     payee?: Users | undefined;
     dateTime: Date;
     amount: number;
+}*/
+export class PayeesAC implements IPayeesAC {
+    id!: number;
+    expenseId!: number;
+    expense?: ExpensesAC | undefined;
+    payeeId?: string | undefined;
+    user?: UsersAC | undefined;
+    payeeShare!: number;
+    payeeInitialShare!: number;
+
+    constructor(data?: IPayeesAC) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.id = _data["Id"];
+            this.expenseId = _data["ExpenseId"];
+            this.expense = _data["Expense"] ? ExpensesAC.fromJS(_data["Expense"]) : <any>undefined;
+            this.payeeId = _data["PayeeId"];
+            this.user = _data["User"] ? UsersAC.fromJS(_data["User"]) : <any>undefined;
+            this.payeeShare = _data["PayeeShare"];
+            this.payeeInitialShare = _data["PayeeInitialShare"];
+        }
+    }
+
+    static fromJS(data: any): PayeesAC {
+        data = typeof data === 'object' ? data : {};
+        let result = new PayeesAC();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["Id"] = this.id;
+        data["ExpenseId"] = this.expenseId;
+        data["Expense"] = this.expense ? this.expense.toJSON() : <any>undefined;
+        data["PayeeId"] = this.payeeId;
+        data["User"] = this.user ? this.user.toJSON() : <any>undefined;
+        data["PayeeShare"] = this.payeeShare;
+        data["PayeeInitialShare"] = this.payeeInitialShare;
+        return data; 
+    }
 }
 
+export interface IPayeesAC {
+    id: number;
+    expenseId: number;
+    expense?: ExpensesAC | undefined;
+    payeeId?: string | undefined;
+    user?: UsersAC | undefined;
+    payeeShare: number;
+    payeeInitialShare: number;
+}
+
+export class Payees implements IPayees {
+    id!: number;
+    expenseId!: number;
+    expense?: Expenses | undefined;
+    payeeId?: string | undefined;
+    user?: Users | undefined;
+    payeeShare!: number;
+    payeeInitialShare!: number;
+
+    constructor(data?: IPayees) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.id = _data["Id"];
+            this.expenseId = _data["ExpenseId"];
+            this.expense = _data["Expense"] ? Expenses.fromJS(_data["Expense"]) : <any>undefined;
+            this.payeeId = _data["PayeeId"];
+            this.user = _data["User"] ? Users.fromJS(_data["User"]) : <any>undefined;
+            this.payeeShare = _data["PayeeShare"];
+            this.payeeInitialShare = _data["PayeeInitialShare"];
+        }
+    }
+
+    static fromJS(data: any): Payees {
+        data = typeof data === 'object' ? data : {};
+        let result = new Payees();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["Id"] = this.id;
+        data["ExpenseId"] = this.expenseId;
+        data["Expense"] = this.expense ? this.expense.toJSON() : <any>undefined;
+        data["PayeeId"] = this.payeeId;
+        data["User"] = this.user ? this.user.toJSON() : <any>undefined;
+        data["PayeeShare"] = this.payeeShare;
+        data["PayeeInitialShare"] = this.payeeInitialShare;
+        return data; 
+    }
+}
+
+export interface IPayees {
+    id: number;
+    expenseId: number;
+    expense?: Expenses | undefined;
+    payeeId?: string | undefined;
+    user?: Users | undefined;
+    payeeShare: number;
+    payeeInitialShare: number;
+}
+
+export class PayersAC implements IPayersAC {
+    id!: number;
+    expenseId!: number;
+    expense?: ExpensesAC | undefined;
+    payerId?: string | undefined;
+    user?: UsersAC | undefined;
+    amountPaid!: number;
+    payerShare!: number;
+    payerInitialShare!: number;
+
+    constructor(data?: IPayersAC) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.id = _data["Id"];
+            this.expenseId = _data["ExpenseId"];
+            this.expense = _data["Expense"] ? ExpensesAC.fromJS(_data["Expense"]) : <any>undefined;
+            this.payerId = _data["PayerId"];
+            this.user = _data["User"] ? UsersAC.fromJS(_data["User"]) : <any>undefined;
+            this.amountPaid = _data["AmountPaid"];
+            this.payerShare = _data["PayerShare"];
+            this.payerInitialShare = _data["PayerInitialShare"];
+        }
+    }
+
+    static fromJS(data: any): PayersAC {
+        data = typeof data === 'object' ? data : {};
+        let result = new PayersAC();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["Id"] = this.id;
+        data["ExpenseId"] = this.expenseId;
+        data["Expense"] = this.expense ? this.expense.toJSON() : <any>undefined;
+        data["PayerId"] = this.payerId;
+        data["User"] = this.user ? this.user.toJSON() : <any>undefined;
+        data["AmountPaid"] = this.amountPaid;
+        data["PayerShare"] = this.payerShare;
+        data["PayerInitialShare"] = this.payerInitialShare;
+        return data; 
+    }
+}
+
+export interface IPayersAC {
+    id: number;
+    expenseId: number;
+    expense?: ExpensesAC | undefined;
+    payerId?: string | undefined;
+    user?: UsersAC | undefined;
+    amountPaid: number;
+    payerShare: number;
+    payerInitialShare: number;
+}
+
+export class Payers implements IPayers {
+    id!: number;
+    expenseId!: number;
+    expense?: Expenses | undefined;
+    payerId?: string | undefined;
+    user?: Users | undefined;
+    amountPaid!: number;
+    payerShare!: number;
+    payerInitialShare!: number;
+
+    constructor(data?: IPayers) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.id = _data["Id"];
+            this.expenseId = _data["ExpenseId"];
+            this.expense = _data["Expense"] ? Expenses.fromJS(_data["Expense"]) : <any>undefined;
+            this.payerId = _data["PayerId"];
+            this.user = _data["User"] ? Users.fromJS(_data["User"]) : <any>undefined;
+            this.amountPaid = _data["AmountPaid"];
+            this.payerShare = _data["PayerShare"];
+            this.payerInitialShare = _data["PayerInitialShare"];
+        }
+    }
+
+    static fromJS(data: any): Payers {
+        data = typeof data === 'object' ? data : {};
+        let result = new Payers();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["Id"] = this.id;
+        data["ExpenseId"] = this.expenseId;
+        data["Expense"] = this.expense ? this.expense.toJSON() : <any>undefined;
+        data["PayerId"] = this.payerId;
+        data["User"] = this.user ? this.user.toJSON() : <any>undefined;
+        data["AmountPaid"] = this.amountPaid;
+        data["PayerShare"] = this.payerShare;
+        data["PayerInitialShare"] = this.payerInitialShare;
+        return data; 
+    }
+}
+
+export interface IPayers {
+    id: number;
+    expenseId: number;
+    expense?: Expenses | undefined;
+    payerId?: string | undefined;
+    user?: Users | undefined;
+    amountPaid: number;
+    payerShare: number;
+    payerInitialShare: number;
+}
+
+export class SettlementsAC implements ISettlementsAC {
+    id!: number;
+    groupId?: number | undefined;
+    group?: GroupsAC | undefined;
+    payerId?: string | undefined;
+    payer?: UsersAC | undefined;
+    payeeId?: string | undefined;
+    payee?: UsersAC | undefined;
+    dateTime!: Date;
+    expenseId!: number;
+    settleExpense?: ExpensesAC | undefined;
+    amount!: number;
+
+    constructor(data?: ISettlementsAC) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.id = _data["Id"];
+            this.groupId = _data["GroupId"];
+            this.group = _data["Group"] ? GroupsAC.fromJS(_data["Group"]) : <any>undefined;
+            this.payerId = _data["PayerId"];
+            this.payer = _data["Payer"] ? UsersAC.fromJS(_data["Payer"]) : <any>undefined;
+            this.payeeId = _data["PayeeId"];
+            this.payee = _data["Payee"] ? UsersAC.fromJS(_data["Payee"]) : <any>undefined;
+            this.dateTime = _data["DateTime"] ? new Date(_data["DateTime"].toString()) : <any>undefined;
+            this.expenseId = _data["ExpenseId"];
+            this.settleExpense = _data["SettleExpense"] ? ExpensesAC.fromJS(_data["SettleExpense"]) : <any>undefined;
+            this.amount = _data["Amount"];
+        }
+    }
+
+    static fromJS(data: any): SettlementsAC {
+        data = typeof data === 'object' ? data : {};
+        let result = new SettlementsAC();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["Id"] = this.id;
+        data["GroupId"] = this.groupId;
+        data["Group"] = this.group ? this.group.toJSON() : <any>undefined;
+        data["PayerId"] = this.payerId;
+        data["Payer"] = this.payer ? this.payer.toJSON() : <any>undefined;
+        data["PayeeId"] = this.payeeId;
+        data["Payee"] = this.payee ? this.payee.toJSON() : <any>undefined;
+        data["DateTime"] = this.dateTime ? this.dateTime.toISOString() : <any>undefined;
+        data["ExpenseId"] = this.expenseId;
+        data["SettleExpense"] = this.settleExpense ? this.settleExpense.toJSON() : <any>undefined;
+        data["Amount"] = this.amount;
+        return data; 
+    }
+}
+
+export interface ISettlementsAC {
+    id: number;
+    groupId?: number | undefined;
+    group?: GroupsAC | undefined;
+    payerId?: string | undefined;
+    payer?: UsersAC | undefined;
+    payeeId?: string | undefined;
+    payee?: UsersAC | undefined;
+    dateTime: Date;
+    expenseId: number;
+    settleExpense?: ExpensesAC | undefined;
+    amount: number;
+}
+
+export class Settlements implements ISettlements {
+    id!: number;
+    groupId?: number | undefined;
+    group?: Groups | undefined;
+    payerId?: string | undefined;
+    payer?: Users | undefined;
+    payeeId?: string | undefined;
+    payee?: Users | undefined;
+    dateTime!: Date;
+    expenseId!: number;
+    settleExpense?: Expenses | undefined;
+    amount!: number;
+
+    constructor(data?: ISettlements) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.id = _data["Id"];
+            this.groupId = _data["GroupId"];
+            this.group = _data["Group"] ? Groups.fromJS(_data["Group"]) : <any>undefined;
+            this.payerId = _data["PayerId"];
+            this.payer = _data["Payer"] ? Users.fromJS(_data["Payer"]) : <any>undefined;
+            this.payeeId = _data["PayeeId"];
+            this.payee = _data["Payee"] ? Users.fromJS(_data["Payee"]) : <any>undefined;
+            this.dateTime = _data["DateTime"] ? new Date(_data["DateTime"].toString()) : <any>undefined;
+            this.expenseId = _data["ExpenseId"];
+            this.settleExpense = _data["SettleExpense"] ? Expenses.fromJS(_data["SettleExpense"]) : <any>undefined;
+            this.amount = _data["Amount"];
+        }
+    }
+
+    static fromJS(data: any): Settlements {
+        data = typeof data === 'object' ? data : {};
+        let result = new Settlements();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["Id"] = this.id;
+        data["GroupId"] = this.groupId;
+        data["Group"] = this.group ? this.group.toJSON() : <any>undefined;
+        data["PayerId"] = this.payerId;
+        data["Payer"] = this.payer ? this.payer.toJSON() : <any>undefined;
+        data["PayeeId"] = this.payeeId;
+        data["Payee"] = this.payee ? this.payee.toJSON() : <any>undefined;
+        data["DateTime"] = this.dateTime ? this.dateTime.toISOString() : <any>undefined;
+        data["ExpenseId"] = this.expenseId;
+        data["SettleExpense"] = this.settleExpense ? this.settleExpense.toJSON() : <any>undefined;
+        data["Amount"] = this.amount;
+        return data; 
+    }
+}
+
+export interface ISettlements {
+    id: number;
+    groupId?: number | undefined;
+    group?: Groups | undefined;
+    payerId?: string | undefined;
+    payer?: Users | undefined;
+    payeeId?: string | undefined;
+    payee?: Users | undefined;
+    dateTime: Date;
+    expenseId: number;
+    settleExpense?: Expenses | undefined;
+    amount: number;
+}
+
+
+
+//
 export class NewFriendAC implements INewFriendAC {
     userId?: string | undefined;
     userFriendEmail?: string | undefined;

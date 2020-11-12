@@ -10,7 +10,7 @@
         <a [routerLink]="['/start-up/home/settlement-list',groupId]"><button class="btn btn-primary settleUp">View Group Settlements</button></a>
       </div>
       <div>
-          <button class="btn btn-primary right" >Delete Group</button>
+          <button class="btn btn-primary right" (click)="deleteGroup(groupId)" >Delete Group</button>
         </div>
     </div>
     <hr>
@@ -68,6 +68,11 @@
                     <td>
                         {{expense.splitBy | titlecase}}
                     </td>
+                    <td>
+                      <span>
+                          <a (click)="deleteExpense(expense.id)">delete</a>
+                      </span>
+                  </td>
                 </tr>
                 <tr *ngIf="showIds.indexOf(expense.id)!=-1">
                   <td colspan="4"  class="card-td">
@@ -79,10 +84,10 @@
                       </div>
                       <div class="card-body">
                           <div *ngFor="let payer of payers">
-                          <p class="col card-text"> {{payer.user.name | titlecase}} <span class="text-success">paid {{payer.amountPaid | currency:'INR'}}</span> and <span class="text-tomato">owes {{payer.payerShare | currency:'INR'}}</span></p>
+                          <p class="col card-text"> {{payer.user.name | titlecase}} <span class="text-success">paid {{payer.amountPaid | currency:'INR'}}</span> and <span class="text-tomato">owes {{payer.payerInitialShare | currency:'INR'}}</span></p>
                           </div>
                           <div *ngFor="let payee of payees">
-                              <p class="col card-text"> {{payee.user.name | titlecase}} owes <span class="text-tomato">{{payee.payeeShare | currency:'INR'}}</span></p>
+                              <p class="col card-text"> {{payee.user.name | titlecase}} owes <span class="text-tomato">{{payee.payeeInitialShare | currency:'INR'}}</span></p>
                               </div>
                       </div>
                   </div>

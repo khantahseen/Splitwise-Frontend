@@ -34,7 +34,8 @@ export class ExpenseComponent implements OnInit {
     PayerId: null,
     User: null,
     AmountPaid: 0,
-    PayerShare: 0
+    PayerShare: 0,
+    PayerInitialShare:0
   }
 
   payee: Payees = new Payees();
@@ -44,7 +45,8 @@ export class ExpenseComponent implements OnInit {
     Group: null,
     PayeeId: null,
     User: null,
-    PayeeShare: 0
+    PayeeShare: 0,
+    PayeeInitialShare:0
   }
 
   friends: UsersAC[] = [];
@@ -243,6 +245,7 @@ export class ExpenseComponent implements OnInit {
     this.payerData.AmountPaid = this.expenseData.Total;
     this.payerData.ExpenseId = this.postedExpenseId;
     this.payerData.PayerShare = payerShare;
+    this.payerData.PayerInitialShare=payerShare;
     this.payer.init(this.payerData);
     console.log(this.payer);
     this.payerClient.postPayers(this.payer).subscribe(result => {
@@ -255,6 +258,7 @@ export class ExpenseComponent implements OnInit {
     this.payeeData.PayeeId = id;
     this.payeeData.ExpenseId = this.postedExpenseId;
     this.payeeData.PayeeShare = payeeShare;
+    this.payerData.PayeeInitialShare=payeeShare;
     this.payee.init(this.payeeData);
     console.log(this.payee);
     this.payeeClient.postPayees(this.payee).subscribe(result => {

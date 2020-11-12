@@ -43,9 +43,18 @@
             <label for="groups" class="col-md-1.5 control-label">Group :</label>
             <div class="col-md-3">
               <select class="form-control" [(ngModel)]="this.settlementData.GroupId" name="groups"
-                id="groups">
+                id="groups" (change)="loadExpense()">
                 <option value="" selected>--none--</option>
                 <option *ngFor="let group of groups" [value]="group.id">{{group.name}}</option>
+              </select>
+            </div>
+            <div class="col-md-4"></div>
+            <label for="groups" class="col-md-1.5 control-label">Expense :</label>
+            <div class="col-md-3">
+              <select class="form-control" [(ngModel)]="this.settlementData.ExpenseId" name="groups"
+                id="groups">
+                <option value="" selected>--none--</option>
+                <option *ngFor="let expense of groupExpenses" [value]="expense.id">{{expense.description}}</option>
               </select>
             </div>
         </div>

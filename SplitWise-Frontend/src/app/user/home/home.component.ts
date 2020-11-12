@@ -14,7 +14,8 @@ export class HomeComponent implements OnInit {
   groups:GroupsAC[];
   friends:UsersAC[];
   
-  constructor(private groupClient:GroupsClient,private route:Router,private userFriendClient:UserFriendClient) { 
+  constructor(private groupClient:GroupsClient,private route:Router,private userFriendClient:UserFriendClient,
+    private router:Router) { 
    
   }
 
@@ -32,5 +33,15 @@ export class HomeComponent implements OnInit {
     },
     error=>console.error());
     
+  }
+
+  logout(){
+    localStorage.clear();
+    let token=localStorage.getItem("authToken");
+    console.log(token);
+    this.router.navigateByUrl(`/start-up/login`)
+          .then(() => {
+            window.location.reload();
+          });
   }
 }

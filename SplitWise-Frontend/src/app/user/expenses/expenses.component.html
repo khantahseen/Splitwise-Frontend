@@ -1,1 +1,37 @@
-<p>expenses works!</p>
+<div>
+    <div class="row">
+        <div class="col-7">
+          <h4>All-Expenses</h4>
+        </div>
+        <div class="col-2.5">
+          <a [routerLink]="['/start-up/home/expense-info']"><button class="btn btn-primary expenseButton">Add an expense</button></a>
+        </div>
+        <div class="col-2">
+            <a [routerLink]="['/start-up/home/settlement']"><button class="btn btn-primary settleUp">Settle up</button></a>
+        </div>
+      </div>
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">Expense</th>
+            <th scope="col">Role</th>
+            <th scope="col">Amount Paid</th>
+            <th scope="col">Share</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let payer of myPayerList">
+            <td>{{payer.expense.description}}</td>
+            <td class="text-tomato">Payer</td>
+            <td class="text-success">{{payer.amountPaid | absolute | number : '1.2-2'}}</td>
+            <td>{{payer.payerShare | absolute | number : '1.2-2'}}</td>
+          </tr>
+          <tr *ngFor="let payee of myPayeeList">
+            <td>{{payee.expense.description}}</td>
+            <td class="text-tomato">Payee</td>
+            <td>-</td>
+            <td>{{payee.payeeShare | absolute | number : '1.2-2'}}</td>
+          </tr>
+        </tbody>
+      </table>
+</div>
