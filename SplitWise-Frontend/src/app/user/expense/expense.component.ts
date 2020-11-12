@@ -258,7 +258,7 @@ export class ExpenseComponent implements OnInit {
     this.payeeData.PayeeId = id;
     this.payeeData.ExpenseId = this.postedExpenseId;
     this.payeeData.PayeeShare = payeeShare;
-    this.payerData.PayeeInitialShare=payeeShare;
+    this.payeeData.PayeeInitialShare=payeeShare;
     this.payee.init(this.payeeData);
     console.log(this.payee);
     this.payeeClient.postPayees(this.payee).subscribe(result => {

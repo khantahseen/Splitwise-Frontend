@@ -78,6 +78,10 @@ export class GroupAddComponent implements OnInit {
         console.log(this.groupmember);
         this.groupMemberClient.postGroupMember(this.groupmember).subscribe(result => {
           console.log(result);
+          this.route.navigateByUrl(`/start-up/home/dashboard`)
+          .then(() => {
+            window.location.reload();
+          });
         },
           error => console.log(error));
       }

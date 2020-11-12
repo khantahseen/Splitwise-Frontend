@@ -1,1 +1,34 @@
-<p>register works!</p>
+<div class="log">
+    <h3>User-Registration</h3>
+    
+    <hr />
+    <div class="row">
+        <div class="col-md-4">
+            <form #form="ngForm">
+                
+                <div class="form-group">
+                    <label class="control-label" for="Email">Name:</label>
+                    <input class="form-control" for="Email" type="text" id="amilInput" name="emailInput" [(ngModel)]='registerData.Name' required/>
+                    
+                </div>
+                <div class="form-group">
+                    <label class="control-label" for="Email">Email:</label>
+                    <input class="form-control" for="Email" type="text" id="amilInput" name="emailInput" [(ngModel)]='registerData.Email' required/>
+                    
+                </div>
+    
+                <div class="form-group">
+                    <label class="control-label" for="Password">Password:</label>
+                    <input class="form-control" for="Password" type="password" id="passwordInput" name="passwordInput" [(ngModel)]='registerData.Password' required/>
+                   
+                </div>
+
+                <div>
+                    <input [disabled]="!form.valid" class='btn btn-primary' type="button" value="Register" (click)='registerUser()' [routerLink]="['/start-up/login']">
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>
+

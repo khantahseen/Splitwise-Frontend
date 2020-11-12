@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { ExpensesAC,UsersAC, GroupsAC,SettlementsAC,Settlements,UserFriendClient,GroupsClient, SettlementsClient, ExpensesClient } from 'src/app/shared/data.service';
 
 @Component({
@@ -25,7 +26,7 @@ export class SettlementsComponent implements OnInit {
     ExpenseId:0
   }
   constructor(private userFriendClient: UserFriendClient, private groupClient: GroupsClient,
-    private expenseClient:ExpensesClient, private settlementClient:SettlementsClient) { }
+    private expenseClient:ExpensesClient, private settlementClient:SettlementsClient, private router:Router) { }
 
   ngOnInit(): void {
     this.getFriends(this.currentUserId);
@@ -65,6 +66,10 @@ export class SettlementsComponent implements OnInit {
     console.log(this.settlement);
     this.settlementClient.postSettlements(this.settlement).subscribe(result => {
       console.log(result);
+      this.router.navigateByUrl(`/start-up/home/dashboard`)
+          .then(() => {
+            window.location.reload();
+          });
     },
       error => console.error(error));
   }
